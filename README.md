@@ -6,11 +6,13 @@ These are my solutions to the puzzles on [adventofcode.com](https://adventofcode
 
 1. Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) to manage node versions
 2. Install node LTS
+
    ```
    nvm install --lts
    nvm use --lts
    ```
 3. Check that node works
+
    ```
    node --version
    ```
