@@ -29,7 +29,7 @@ node main.js
 
 ### Setting up a new day
 
-On a new day, copy the skeleton and fetch the input when it's available.
+On a new day, copy the skeleton and fetch the input when it's available:
 
 ```bash
 # Copy the skeleton
