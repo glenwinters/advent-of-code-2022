@@ -1,7 +1,8 @@
 def get_input():
     with open("input.txt", "r") as f:
         lines = f.read().splitlines()
-        return lines    
+        return lines
+
 
 # Approach
 # For each tree, we could scan to the edge in all 4 directions, but
@@ -33,13 +34,13 @@ def main():
         for i in range(tree_len):
             row_tree = int(trees[j][i])
             col_tree = int(trees[i][j])
-            
+
             # check for tallest in row
             if row_tree > row_tallest:
                 row_tallest = row_tree
                 row_tallest_i = i
                 if visibility[j][i] != 1:
-                    trees_visible +=1
+                    trees_visible += 1
                 visibility[j][i] = 1
 
             elif row_tree == row_tallest:
@@ -50,7 +51,7 @@ def main():
                 col_tallest = col_tree
                 col_tallest_i = i
                 if visibility[i][j] != 1:
-                    trees_visible +=1
+                    trees_visible += 1
                 visibility[i][j] = 1
             elif col_tree == col_tallest:
                 col_tallest_i = i
@@ -87,7 +88,76 @@ def main():
                     trees_visible += 1
                 visibility[i][j] = 1
 
-    print(visibility)
     print(trees_visible)
 
+
+def main2():
+    tree_input = get_input()
+    trees = [[-1] * len(tree_input) for _ in range(len(tree_input))]
+    scores = [[-1] * len(tree_input) for _ in range(len(tree_input))]
+    max_score = -1
+
+    for i in range(len(tree_input)):
+        for j in range(len(tree_input)):
+            tree = int(tree_input[j][i])
+            trees[j][i] = tree
+
+    for j in range(len(trees)):
+        for i in range(len(trees)):
+            tree = trees[j][i]
+            # print(f'current {i},{j}')
+
+            # print("north")
+            seen_north = 0
+            for n in range(1, len(trees)):
+                j2 = j - n
+                if j2 < 0:
+                    break
+                seen_north += 1
+                if trees[j2][i] >= tree:
+                    break
+            # print(seen_north)
+
+            # print("south")
+            seen_south = 0
+            for n in range(1, len(trees)):
+                j2 = j + n
+                if j2 > len(trees) - 1:
+                    break
+                seen_south += 1
+                if trees[j2][i] >= tree:
+                    break
+            # print(seen_south)
+
+            # print("west")
+            seen_west = 0
+            for n in range(1, len(trees)):
+                i2 = i - n
+                if i2 < 0:
+                    break
+                seen_west += 1
+                if trees[j][i2] >= tree:
+                    break
+            # print(seen_west)
+
+            # print("east")
+            seen_east = 0
+            for n in range(1, len(trees)):
+                i2 = i + n
+                if i2 > len(trees) - 1:
+                    break
+                seen_east += 1
+                if trees[j][i2] >= tree:
+                    break
+            # print(seen_east)
+
+            score = seen_north * seen_south * seen_west * seen_east
+            scores[j][i] = score
+
+            if score > max_score:
+                max_score = score
+    print(max_score)
+
+
 main()
+main2()
